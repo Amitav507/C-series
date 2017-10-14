@@ -69,11 +69,11 @@ void insert_front(NODE **p, int x)
     if(*p==NULL)//empty list
       *p=temp;
     else
-      {
+    {
          temp->next=*p;
          (*p)->prev=temp;
          *p=temp;
-      }
+    }
 } 
       
 void insert_end(NODE **p, int x)
