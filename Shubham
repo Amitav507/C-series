@@ -1,0 +1,239 @@
+//LDL list
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+struct stud{
+		char Roll_No[9];
+		char Name[20];
+		float CGPA;
+		struct stud*next;
+		struct stud*prev;
+}*head=NULL,*temp,*save,*save2;
+void insert_end()
+{
+	char roll[9],name[20];
+	float cg;
+	printf("Enter Student Roll no.:\n");
+	scanf("%s",roll);
+	printf("Enter Student Name:\n");
+	scanf("%s",name);
+	printf("Enter Student CGPA:\n");
+	scanf("%f",&cg);
+	temp=(struct stud*)malloc(sizeof(struct stud));
+	strcpy(temp->Roll_No,roll);	
+	strcpy(temp->Name,name);
+	temp->CGPA=cg;
+	temp->next=NULL;	
+	temp->prev=NULL;
+	if(head==NULL)
+		head=temp;
+	
+	else	
+   	{   
+		save=head;
+		while(save->next!=NULL)
+            		save=save->next;
+		temp->prev=save;
+		save->next=temp;
+		save=temp;
+	}
+}
+void insert_begin()
+{
+	char roll[9],name[20];
+	float cg;
+	printf("Enter Student Roll no.:\n");
+	scanf("%s",roll);
+	printf("Enter Student Name:\n");
+	scanf("%s",name);
+	printf("Enter Student CGPA:\n");
+	scanf("%f",&cg);
+	temp=(struct stud*)malloc(sizeof(struct stud));
+	strcpy(temp->Roll_No,roll);	
+	strcpy(temp->Name,name);
+	temp->CGPA=cg;
+	temp->next=NULL;
+	temp->prev=NULL;	
+	if(head==NULL)
+		head=temp;
+	else
+	{
+		head->prev=temp;
+		save=head;
+		head=temp;
+		temp->next=save;
+	}
+}
+void insert_between()
+{
+	int pos;
+    	char roll[9],name[20];
+	float cg;
+	printf("Enter Student Roll no.:\n");
+	scanf("%s",roll);
+	printf("Enter Student Name:\n");
+	scanf("%s",name);
+	printf("Enter Student CGPA:\n");
+	scanf("%f",&cg);
+	printf("Enter Position:\n");
+	scanf("%d",&pos);
+    	temp=(struct stud*)malloc(sizeof(struct stud));
+	strcpy(temp->Roll_No,roll);	
+	strcpy(temp->Name,name);
+	temp->CGPA=cg;
+	temp->next=NULL;
+	temp->prev=NULL;	
+	if(head==NULL)
+		head=temp;
+	else
+	{   
+		save=head;
+        	pos-=1;
+		while(--pos)
+            		save=save->next;
+        	
+		save2=save->next;
+        	save->next=temp;
+        	temp->prev=save;
+		temp->next=save2;
+		save2->prev=temp;
+	}
+}
+void delete_first()
+{
+	if(head==NULL)
+		printf("Underflow\n");
+	else
+		head=head->next;
+		head->prev=NULL;
+}
+void delete_between()
+{
+	int pos;
+    printf("Enter Position:\n");
+	scanf("%d",&pos);
+    if(head==NULL)
+		printf("Underflow\n");
+	else
+    {
+        save=head;
+        pos--;
+        while(--pos)
+            save=save->next;
+	save->next->next->prev=save;	
+	save->next=save->next->next;
+    }
+}
+void delete_last()
+{
+	if(head==NULL)
+		printf("Underflow\n");
+	else
+    {
+        temp=head;
+        while(temp->next->next!=NULL)
+            temp=temp->next;
+        temp->next=NULL;
+    }
+}
+void display()
+{
+	temp=head;
+	while(temp!=NULL)
+	{
+		printf("Student Roll no.:%s\n",temp->Roll_No);
+		printf("Student Name:%s\n",temp->Name);
+		printf("Student CGPA:%f\n",temp->CGPA);
+		save=temp;
+		temp=temp->next;
+	}
+	printf("\nReverse Traversal\n");
+	while(save!=NULL)
+	{
+		printf("Student Roll no.:%s\n",save->Roll_No);
+                printf("Student Name:%s\n",save->Name);
+                printf("Student CGPA:%f\n",save->CGPA);
+                //save=temp;
+                save=save->prev;
+	}
+}
+void search()
+{
+    char s[100];
+    int flag=0;
+    printf("Enter Roll no:\n");
+    scanf("%s",s);
+    temp=head;
+    while(temp!=NULL)
+    {
+        if(!strcmp(s,temp->Roll_No))
+        {
+            flag=1;
+            save=temp;
+            break;            
+        }
+        else
+            flag=0;
+        temp=temp->next;
+    }
+    if(flag==1)
+    {
+        printf("Student Roll no.:%s\n",save->Roll_No);
+        printf("Student Name:%s\n",save->Name);
+        printf("Student CGPA:%f\n",save->CGPA);
+    }
+    else
+        printf("Not Found\n");
+            
+}
+int main()
+{
+	int n;
+	while(1)
+	{
+		printf("what do you want to do?\n 1. Insertion 2. Deletion 3.Display 4.Exit 5. Search");
+
+	 scanf("%d",&n);
+	 if(n==1){
+
+  printf("1.at begining 2. at end 3. in between");
+  int c;
+  scanf("%d",&c);
+  if(c==1)
+  insert_begin(&head);
+  else if(c==2)
+  insert_end(&head);
+  else
+  insert_between(head);
+
+}
+if(n==2)
+{
+	printf("1.at begining 2. at end 3. at any index other than first and last");
+	int c;
+  scanf("%d",&c);
+  if(c==1)
+  delete_first();
+  else if(c==2)
+  delete_last();
+  else
+  delete_between();
+
+}
+if(n==3)
+display(head);
+if(n==4)
+break;
+if(n==5)
+{
+	
+ 
+  search();
+ 
+
+
+}
+	}
+    return 0;
+}
+
