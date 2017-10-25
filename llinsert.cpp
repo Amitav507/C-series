@@ -98,6 +98,14 @@ void lldelete(int pos)
 	}
 	return;
 }
+int reverse(Node *k){             //new addition on 25th Oct begins
+	Node *temp=k;
+	if(temp->link!=NULL)
+	reverse(temp->link);
+	printf(" %d",temp->info);
+	return 0;
+}                                  //ends
+
 int main()
 {
 	int t,d,pos;
@@ -118,10 +126,16 @@ int main()
 			break;
 		case 3:
 		    printf("\n enter position to delete");
-			scanf("%d",&pos);
+:			scanf("%d",&pos);
 			lldelete(pos);
-			break;	
-		case 4:
+			break;
+				case 4:                                  //new addition on 25th oct begins
+		    printf("\n list in reverse: ");
+			reverse(start);
+			break;	 		                     //ends
+		
+	//	case 4:
+	case 5
 		    return 0; 		
 	 }
     }
