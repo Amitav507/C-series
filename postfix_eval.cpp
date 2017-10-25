@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<ctype.h>
+
 int top=-1;
 int stack[20];
 int push(int val)
@@ -10,9 +11,9 @@ int push(int val)
 int pop()
 {
 	if(top<0)
-	return 0;
+		return 0;
 	else
-	return stack[top--];
+		return stack[top--];
 }
 int main()
 {
