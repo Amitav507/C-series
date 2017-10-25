@@ -61,6 +61,10 @@ int main()
 				case '/':
 					readingNumber=false;
 					op2=pop();
+					if(op2==0){
+						printf("Divided by zero\n");
+						return 0;
+					}	
 					op1=pop();
 					temp=op1/op2;
 					push(temp);
